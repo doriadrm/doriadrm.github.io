@@ -7,7 +7,7 @@
 <meta name="description" content="Doria Deramchi, PhD researcher in AI for radar signal processing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: fixed side nav on desktop, one reading column; dark-first ink with violet accent */
 :root {
@@ -18,22 +18,10 @@
   --line: #233237;
   --accent: #B79BFF;
   --accent-soft: rgba(183, 155, 255, 0.12);
-  --font-display: "Syne", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Unbounded", "Segoe UI", system-ui, sans-serif;
   --font-body: "DM Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   color-scheme: dark;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #F6F4EF; --bg-raise: #FFFFFF; --fg: #16201F; --muted: #5E6B6A;
-    --line: #E1DDD3; --accent: #6A45D6; --accent-soft: rgba(106, 69, 214, 0.10);
-    color-scheme: light;
-  }
-}
-:root[data-theme="light"] {
-  --bg: #F6F4EF; --bg-raise: #FFFFFF; --fg: #16201F; --muted: #5E6B6A;
-  --line: #E1DDD3; --accent: #6A45D6; --accent-soft: rgba(106, 69, 214, 0.10);
-  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -95,15 +83,15 @@ main {
   padding-left: max(24px, env(safe-area-inset-left, 0px));
   padding-right: max(24px, env(safe-area-inset-right, 0px));
 }
-section { padding-block: 96px; }
+section { padding-block: 96px; scroll-margin-top: 72px; }
 
 /* Hero */
 .hero { padding-block: 18vh 96px; }
 .hello {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(44px, 8vw, 84px);
-  line-height: 1;
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: 1.1;
   letter-spacing: -0.035em;
   margin: 0 0 20px;
 }
@@ -118,7 +106,7 @@ section { padding-block: 96px; }
 .tagline {
   font-family: var(--font-display); font-weight: 600;
   font-size: clamp(24px, 3.6vw, 38px);
-  color: var(--muted); letter-spacing: -0.02em; line-height: 1.15;
+  color: var(--muted); letter-spacing: -0.02em; line-height: 1.25;
   margin: 0 0 28px; text-wrap: balance;
 }
 .intro { max-width: 36em; color: var(--muted); margin: 0 0 36px; }
@@ -227,18 +215,19 @@ footer .outro { font-size: 13.5px; color: var(--accent); margin-bottom: 14px; pa
 }
 
 /* ---------- Responsive ---------- */
-@media (min-width: 1101px) {
-  main { margin-left: max(220px, calc((100% - 900px) / 2)); }
+/* Top navigation bar at every width */
+.sidenav {
+  position: sticky; top: env(safe-area-inset-top, 0px); bottom: auto; width: auto;
+  flex-direction: row; align-items: center; gap: 24px;
+  padding: 18px max(32px, env(safe-area-inset-right, 0px)) 18px max(32px, env(safe-area-inset-left, 0px));
+  background: rgba(13, 20, 23, 0.82);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
 }
-@media (max-width: 1100px) {
-  .sidenav {
-    position: sticky; top: env(safe-area-inset-top, 0px); bottom: auto; width: auto;
-    flex-direction: row; align-items: center;
-    padding: 16px max(24px, env(safe-area-inset-right, 0px)) 16px max(24px, env(safe-area-inset-left, 0px));
-    background: var(--bg); border-bottom: 1px solid var(--line);
-  }
-  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-  .sidenav ul { grid-auto-flow: column; gap: 20px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.sidenav ul { grid-auto-flow: column; gap: 28px; }
+.sidenav .links { grid-auto-flow: column; gap: 20px; }
+@media (max-width: 960px) {
   .sidenav .links { display: none; }
 }
 @media (max-width: 760px) {
@@ -246,6 +235,7 @@ footer .outro { font-size: 13.5px; color: var(--accent); margin-bottom: 14px; pa
   main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
   .sidenav { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
   .sidenav ul { display: none; }
+  .sidenav .links { display: grid; gap: 16px; }
   section { padding-block: 64px; }
   .hero { padding-block: 64px 48px; }
   .about-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
@@ -311,7 +301,7 @@ footer .outro { font-size: 13.5px; color: var(--accent); margin-bottom: 14px; pa
           <p class="stack-title">languages:</p>
           <ul class="stack">
             <li>French, native</li><li>Arabic, bilingual</li>
-            <li>English, fluent</li>
+            <li>English, fluent</li><li>Chinese, beginner</li>
           </ul>
         </div>
       </div>
