@@ -587,11 +587,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   window.addEventListener("pointerdown", track, { passive: true });
   document.documentElement.addEventListener("pointerleave", function () { pointer.active = false; });
 
+  // Rapid clicks on empty space would otherwise select nearby text (double/triple click)
+  document.addEventListener("mousedown", function (e) {
+    if (e.detail < 2) return;
+    if (e.target.closest("a, button, p, h1, h2, h3, h4, li, span, nav, .card, .tablist, .edu-row")) return;
+    e.preventDefault();
+  });
+
   document.addEventListener("click", function (e) {
     if (reduceMotion) return;
     // Only react to clicks on empty space, not on text, links or controls
     if (e.target.closest("a, button, p, h1, h2, h3, h4, li, span, nav, .card, .tablist, .edu-row")) return;
-    if (window.getSelection && String(window.getSelection())) return;
+    if (e.detail < 2 && window.getSelection && String(window.getSelection())) return;
     lastClick = performance.now();
     spawn(e.clientX, e.clientY);
     if (!running) { running = true; requestAnimationFrame(step); }
